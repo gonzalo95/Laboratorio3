@@ -1,7 +1,8 @@
-window.addEventListener("click", function()
+window.addEventListener("load", function()
 {
-	var btnSumar = document.getElementById("btnSumar").addEventListener("click", Sumar);
-	var btnGuardar = document.getElementById("btnGurdar").addEventListener("click", Guardar);
+	document.getElementById("btnSumar").addEventListener("click", Sumar);
+	document.getElementById("btnGuardar").addEventListener("click", Sumar);
+	document.getElementById("btnGuardar").addEventListener("click", Guardar);
 });
 
 function Sumar()
@@ -18,5 +19,5 @@ function Guardar()
 	var resultado = document.getElementById("resultado").value;
 
 	var tbody = document.getElementById("tbody");
-	tbody.innerHTML = "<tr><td>" + op1 + "</td><td>"  + op2 + "</td><td>" + resultado + "</td></tr";
+	tbody.innerHTML = "<tr><td>" + op1 + "</td><td>" + op2 + "</td><td>" + resultado + "</td></tr>";
 }
