@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>PERSONAS</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="./EstilosPersonas.css">
+	<script src="./Personas.js"></script>
+</head>
+<body>
+	<input type="button" name="Abrir" value="Abrir" id="btnAbrir">
+	<div id="div" hidden>
+	<input type="button" name="Cerrar" value="X" id="btnCerrar"  class="cerrar">
+	<p>Nombre:</p>
+ 	<input type="text" name="nombre" placeholder ="Tu nombre.." id="nombre">
+
+	<p>Apellido:</p>
+ 	<input type="text" name="apellido" placeholder ="Tu apellido.." id="apellido">
+ 	<p></p>
+ 	<input type="button" name="Guardar" value="Guardar" id="btnGuardar" class="guardar">
+	</div>
+ 	<h2>Lista de personas</h2>
+ 	<table>
+ 		<tr class="cabecera">
+ 			<td>Nombre</td>
+ 			<td>Apellido</td>
+ 			<td>Accion</td>
+ 		</tr>
+ 		<tbody id="tbody">
+					
+		</tbody>
+ 	</table>
+</body>
+</html>
