@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Ejemplo AJAX</title>
+	<script>
+		var xml = new XMLHttpRequest();
+		xml.open("GET", "http://192.168.2.28:3000/login", true);
+		xml.onreadystatechange = callback;
+		xml.send("?usr=usuario&pass=1234");
+
+		function callback()
+		{
+			// console.log("Llego la respuesta del servidor! ", xml.readyState, xml.status);
+			if (xml.readyState == 4) 
+			{
+				if (xml.status == 200) 
+				{
+					console.log("Llego la respuesta del servidor!");
+				}
+				else
+				{
+					alert("Error del servidor: " + xml.status);
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<form>
+    <fieldset>
+        <legend>Login:</legend>
+        Usuario: <br/>
+        <input id="usr" type="text" name="txtUsr"/><br/>
+        Contraseña: <br/>
+        <input id="pass" type="password" name="txtPass"/><br/>
+		<input type="checkbox" name="cbRecordar" checked/>Recordar usar y contraseña<br/>
+        <input type="button" id="btn" value="Enviar"  />
+        <input type="reset" value="Limpiar"/>
+    </fieldset>
+
+</form>
+</body>
+</html>
