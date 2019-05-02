@@ -23,18 +23,24 @@ function callback()
 {
 	if (xml.readyState == 4) 
 	{
+        var fondo = document.getElementById("fondo");
+
 		if (xml.status == 200) 
 		{
-            var respuesta = xml.responseText;
-            alert(respuesta);
-            var respuesta = JSON.parse(respuesta);
+            var respuesta = JSON.parse(xml.responseText);
 
-            /*
             document.getElementById("tbody").innerHTML += "<tr><td>" + respuesta.title +
                                                           "</td><td>" + respuesta.header +
-                                                          "</td><td>" + respuesta.texto +
-                                                          "</td></tr>";  */
+                                                          "</td><td>" + respuesta.posttext +
+                                                          "</td><td>" + respuesta.author +
+                                                          "</td><td>" + respuesta.date +
+                                                          "</td></tr>"; 
+            fondo.hidden = true;
 		}
+        else
+        {
+            fondo.hidden = true;
+        }
 	}
 }
 
@@ -61,25 +67,20 @@ function postear()
     console.log(header);
     console.log(texto);
     console.log(autor);
-/*
+
     var datosPost = 
     {
-        texttitle: titulo,
-        textheader: header,
-        posttext: texto,
-        author: autor
+        "title": titulo,
+        "header": header,
+        "posttext": texto,
+        "author": autor
     }
-*/
 
-var datosPost = 
-{
-    "title": titulo,
-    "header": header,
-    "posttext": texto,
-    "author": autor
-}
+    var fondo = document.getElementById("fondo");
+    fondo.hidden = false;
+
     xml.open("POST", "http://localhost:1337/postearNuevaEntrada", true);
-    //xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xml.onreadystatechange = callback;
-    xml.send(datosPost);
+    xml.send(JSON.stringify(datosPost));
 }
