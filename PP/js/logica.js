@@ -64,7 +64,32 @@ function MostrarRecuadro()
     var elemento = event.target;
     nodo = elemento;
     var div = document.getElementById("div");
-	div.hidden = false;
+    div.hidden = false;
+    var tr = nodo.parentNode;
+    var tds = tr.children;
+   
+    var id = tr.firstElementChild;
+    var nombre = id.nextElementSibling;
+    var cuatrimestre = nombre.nextElementSibling;
+    var fecha = cuatrimestre.nextElementSibling;
+    var turno = fecha.nextElementSibling;
+
+    fecha = fecha.innerText;
+    fecha = fecha.split("/");
+    fecha = fecha.reverse();
+    fecha = fecha.join("-");
+
+    document.getElementById("nombre").value = nombre.innerText;
+    document.getElementById("cuatrimestre").value = cuatrimestre.innerText;
+    document.getElementById("fecha").value = fecha;
+    if (turno.innerText == "Mañana")
+    {
+        document.getElementById("turnoM").checked = true;
+    }
+    else
+    {
+        document.getElementById("turnoN").checked = true;
+    }
 }
 
 function Cerrar()
@@ -75,8 +100,18 @@ function Cerrar()
 
 function Modificar()
 {
+    var tr = nodo.parentNode;
+    var tds = tr.children;
+    var id = tr.firstElementChild;
+    var cuatrimestre = id.nextElementSibling.nextElementSibling;
+
     var nombre = document.getElementById("nombre").value;
     var fecha = document.getElementById("fecha").value;
+    
+    fecha = fecha.split("-");
+    fecha = fecha.reverse();
+    fecha = fecha.join("/");
+    
     if(document.getElementById("turnoM").checked == true)
     {
         var turno = "Mañana";
@@ -89,8 +124,10 @@ function Modificar()
 
     var obj = 
     {
+        "id": id.innerText,
         "nombre": nombre,
-        "fecha": fecha,
+        "cuatrimestre": cuatrimestre.innerText,
+        "fechaFinal": fecha,
         "turno": turno
     };
     
@@ -135,7 +172,12 @@ function ModificarRegistro()
     var turno = fecha.nextElementSibling;
     
     nombre.innerText = document.getElementById("nombre").value;
-    fecha.innerText = document.getElementById("fecha").value; 
+
+    fecha = document.getElementById("fecha").value.split("-");
+    fecha = fecha.reverse();
+    fecha = fecha.join("/");
+
+    fecha.innerText = fecha;
     
     if(document.getElementById("turnoM").checked == true)
     {
@@ -196,4 +238,17 @@ function BorrarRegistro()
 {
     var tr = nodo.parentNode;
     tr.parentNode.removeChild(tr);
+}
+
+function validarMateria(materia)
+{
+    return materia.length > 6;
+}
+
+function validarFecha(fecha)
+{
+    //var date = Date.parse(fecha);
+    //console.log(date);
+    //var f = new Date();
+    //f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear())
 }

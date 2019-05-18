@@ -16,7 +16,7 @@
 	 	<input type="text" placeholder ="Nombre" id="nombre">
 
 		<p>Cuatrimestre:</p>
-         <select id="cuatrimestre">
+         <select id="cuatrimestre" disabled=true>
             <option value=1>Primero</option>
             <option value=2>Segundo</option>
             <option value=3>Tercero</option>
@@ -27,8 +27,8 @@
 	 	<input type="date" placeholder ="Fecha" id="fecha">
 
 	 	<p>Turno:</p>
-        <input type="radio" id="turnoM">Mañana</br>
-        <input type="radio" id="turnoN">Noche</br>
+        <input type="radio" id="turnoM" name="turno" checked=true>Mañana</br>
+        <input type="radio" id="turnoN" name="turno">Noche</br>
 
         <button id="btnModificar" class="modificar">Modificar</button>
          
