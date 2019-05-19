@@ -49,7 +49,8 @@ function CargarMaterias(materias)
 
 		for (var j = 0; j < columnas.length; j++) 
 		{
-			var cel = document.createElement("td");
+            var cel = document.createElement("td");
+            if (j == 0) cel.setAttribute("hidden", true);
 			var texto = document.createTextNode(obj[columnas[j]]);
 			cel.appendChild(texto);
 			fila.appendChild(cel);
@@ -74,14 +75,14 @@ function MostrarRecuadro()
     var fecha = cuatrimestre.nextElementSibling;
     var turno = fecha.nextElementSibling;
 
-    fecha = fecha.innerText;
-    fecha = fecha.split("/");
-    fecha = fecha.reverse();
-    fecha = fecha.join("-");
-
+    console.log(fecha.innerText);
+    console.log(fecha.innerText.split("/").reverse().join("/"));
+    
     document.getElementById("nombre").value = nombre.innerText;
+    document.getElementById("nombre").classList.remove("conError");
     document.getElementById("cuatrimestre").value = cuatrimestre.innerText;
-    document.getElementById("fecha").value = fecha;
+    document.getElementById("fecha").value = fecha.innerText.split("/").reverse().join("-");
+    document.getElementById("fecha").classList.remove("conError");
     if (turno.innerText == "Mañana")
     {
         document.getElementById("turnoM").checked = true;
@@ -107,11 +108,7 @@ function Modificar()
 
     var nombre = document.getElementById("nombre").value;
     var fecha = document.getElementById("fecha").value;
-    
-    fecha = fecha.split("-");
-    fecha = fecha.reverse();
-    fecha = fecha.join("/");
-    
+
     if(document.getElementById("turnoM").checked == true)
     {
         var turno = "Mañana";
@@ -120,24 +117,30 @@ function Modificar()
     {
         var turno = "Noche";
     }
-    
 
-    var obj = 
+    console.log(fecha);
+    console.log(fecha.split("-").join("/"));
+    console.log(fecha.split("-").reverse().join("/"));
+
+    if (Validar())
     {
-        "id": id.innerText,
-        "nombre": nombre,
-        "cuatrimestre": cuatrimestre.innerText,
-        "fechaFinal": fecha,
-        "turno": turno
-    };
-    
-    var fondo = document.getElementById("fondo");
-    fondo.hidden = false;
+        var obj = 
+        {
+            "id": id.innerText,
+            "nombre": nombre,
+            "cuatrimestre": cuatrimestre.innerText,
+            "fechaFinal": fecha.split("-").reverse().join("/"),
+            "turno": turno
+        };
+        
+        var fondo = document.getElementById("fondo");
+        fondo.hidden = false;
 
-    xml.open("POST", "http://localhost:3000/editar", true);
-    xml.setRequestHeader("Content-type", "application/json");
-    xml.onreadystatechange = CallbackModificar;
-    xml.send(JSON.stringify(obj));
+        xml.open("POST", "http://localhost:3000/editar", true);
+        xml.setRequestHeader("Content-type", "application/json");
+        xml.onreadystatechange = CallbackModificar;
+        xml.send(JSON.stringify(obj));
+    }
 }
 
 function CallbackModificar()
@@ -150,7 +153,10 @@ function CallbackModificar()
             fondo.hidden = true;
             var respuesta = JSON.parse(xml.responseText);
             console.log(respuesta);
-            ModificarRegistro();
+            if (respuesta.type == "ok")
+            {
+                ModificarRegistro();
+            }
         }
         else
         {
@@ -172,12 +178,7 @@ function ModificarRegistro()
     var turno = fecha.nextElementSibling;
     
     nombre.innerText = document.getElementById("nombre").value;
-
-    fecha = document.getElementById("fecha").value.split("-");
-    fecha = fecha.reverse();
-    fecha = fecha.join("/");
-
-    fecha.innerText = fecha;
+    fecha.innerText = document.getElementById("fecha").value.split("-").reverse().join("/");
     
     if(document.getElementById("turnoM").checked == true)
     {
@@ -240,9 +241,31 @@ function BorrarRegistro()
     tr.parentNode.removeChild(tr);
 }
 
-function validarMateria(materia)
+function Validar()
 {
-    return materia.length > 6;
+    var fecha = new Date(document.getElementById("fecha").value);
+    console.log(fecha.getTime());
+    var date = new Date();
+    console.log(date.getTime());
+    console.log(document.getElementById("nombre").value.length);
+    if (document.getElementById("nombre").value.length >= 6)
+    {
+        if (fecha >= date)
+        {
+            return true;
+        }
+        else
+        {
+            document.getElementById("fecha").className = "conError";
+            return false;
+        }
+    }
+    else
+    {
+        document.getElementById("nombre").className = "conError";
+        return false;
+    }
+
 }
 
 function validarFecha(fecha)
