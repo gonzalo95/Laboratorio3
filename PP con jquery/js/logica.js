@@ -74,13 +74,13 @@ function MostrarRecuadro()
     $("#fecha").removeClass("conError");
     if (turno.innerText == "Mañana") // ACA ESTA FALLANDO??
     {
-        $("#turnoN").attr("checked", false);
-        $("#turnoM").attr("checked", true);
+        $("#turnoN").prop("checked", false);
+        $("#turnoM").prop("checked", true);
     }
     else
     {
-        $("#turnoM").attr("checked", false);
-        $("#turnoN").attr("checked", true);
+        $("#turnoM").prop("checked", false);
+        $("#turnoN").prop("checked", true);
     }
 }
 
