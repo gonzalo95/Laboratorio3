@@ -1,0 +1,10 @@
+npm init
+tsc --init
+tsc -w  // Compila todos los archivos segun la configuracion en el json
+
+npm install @types/jquery
+
+
+*En el html incluyo solo el .js que surge de la compilacion*
+*ctrl + ñ => terminal en el visual studio code*
+*"sourceMap": true, para activar debugging*
