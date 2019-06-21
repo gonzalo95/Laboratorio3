@@ -1,12 +1,13 @@
 table
 {
 	width: 100%;
-	margin-top: 100px;
+	margin-top: 50px;
+	border-collapse: collapse;
+	border: none;
 }
 
 th
 {
-	border-collapse: collapse;
 	background-color: green;
 	color: white;
 	padding: 8px;
@@ -14,7 +15,12 @@ th
 
 tr:nth-child(even)
 {
-	background-color: lightgrey; 
+	background-color: lightgray; 
+}
+
+tr:hover
+{
+	background-color: gray;
 }
 
 td

@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./animal.js"></script>
+    <script src="./perro.js"></script>
+    <script src="./gato.js"></script>
+    <script src="./logica.js"></script>
+    <link rel="stylesheet" href=".\node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <title>Mascotas</title>
+</head>
+<body>
+
+    <label>Nombre de la mascota</label>
+    <input id="inputNombre" />
+
+    </br>
+
+    <label>Tipo de mascota</label>
+    <select id="selectTipo">
+        <option>Perro</option>
+        <option>Gato</option>
+    </select>
+
+    </br>
+
+    <button id="btnAgregar" class="btn btn-primary">Agregar</button>
+
+    </br>
+
+    <button type="button" id="btnMostrar" class="btn btn-primary" data-toggle="modal" data-target="#modal">Mostrar</button>
+
+    <div class="modal fade" id="modal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Mascotas guardadas:</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi perferendis debitis asperiores voluptatibus aliquid possimus quibusdam necessitatibus voluptatum autem officiis, libero ut voluptate commodi molestiae, id voluptas similique nesciunt. Deserunt.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

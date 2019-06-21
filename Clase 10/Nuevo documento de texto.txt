@@ -1,4 +1,5 @@
 npm init
+*npm install -g typescript *
 tsc --init
 tsc -w  // Compila todos los archivos segun la configuracion en el json
 
