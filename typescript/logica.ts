@@ -28,6 +28,13 @@ function agregar():void
 function mostrar()
 {
     console.log(lista);
+    for (let i = 0; i < lista.length; i++) 
+    {
+        let mascota = document.createTextNode("<p>");
+        mascota.innerText = lista[i].getNombre();
+        $("#modalBody").append(mascota);
+        
+    }
 }
 
 function eliminar()
