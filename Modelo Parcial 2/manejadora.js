@@ -1,13 +1,25 @@
 "use strict";
 var lista = new Array();
-var target;
+//var target:number;
 $(function () {
     $("#btnAgregar").click(agregarEmpleado);
+    $("#btnCancelar").click(limpiarFormulario);
     $("#aMostrar").click(mostrarEmpleados);
+    $("#btnPromedio").click(promediar);
+    $("#btnCerrarPromedio").click(borrarPromedio);
     if (localStorage.getItem("empleados")) {
         lista = JSON.parse(localStorage.getItem("empleados"));
     }
 });
+function borrarPromedio() {
+    $("#selectPromedio").val("Mañana");
+    $("#pPromedio").html("");
+}
+function promediar() {
+    var turno = $("#selectPromedio").val();
+    var promedio = lista.reduce(function (sum, empleado) { return (JSON.parse(empleado)).horario === turno ? sum + 1 : sum; }, 0) / lista.length;
+    $("#pPromedio").html("Promedio: " + String(promedio));
+}
 function agregarEmpleado() {
     var nombre = String($("#inputNombre").val());
     var apellido = String($("#inputApellido").val());
@@ -24,6 +36,9 @@ function limpiarFormulario() {
     $("#inputEdad").val("");
     $("#selectHorario").val("Mañana");
     $("#inputLegajo").val("");
+    $("#btnAgregar").text("Agregar");
+    $("#btnAgregar").click(agregarEmpleado);
+    $("#headerForm").html("Alta empleado");
 }
 function mostrarEmpleados() {
     console.log(lista);
@@ -64,15 +79,20 @@ function mostrarEmpleados() {
 }
 function cambiarForm(e) {
     var trigger = e.target;
-    target = trigger.previousSibling.previousSibling.innerHTML;
-    ($("#inputNombre").val());
-    ($("#inputApellido").val());
-    ($("#inputEdad").val());
-    ($("#selectHorario").val());
-    ($("#inputLegajo").val());
+    var horario = trigger.previousSibling;
+    var legajo = horario.previousSibling;
+    var edad = legajo.previousSibling;
+    var apellido = edad.previousSibling;
+    var nombre = apellido.previousSibling;
+    ($("#inputNombre").val(nombre.innerHTML));
+    ($("#inputApellido").val(apellido.innerHTML));
+    ($("#inputEdad").val(edad.innerHTML));
+    ($("#selectHorario").val(horario.innerHTML));
+    ($("#inputLegajo").val(legajo.innerHTML));
     $("#btnAgregar").text("Modificar");
     $("#btnAgregar").unbind("click");
     $("#btnAgregar").click(wrapModificar);
+    $("#headerForm").html("Modificar empleado");
 }
 function wrapModificar() {
     modificar(target);

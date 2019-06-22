@@ -31,7 +31,7 @@
                         Ver
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Promedio</a>
+                        <a type="button" data-toggle="modal" data-target="#modalPromedio" class="dropdown-item" href="#">Promedio</a>
                         <a class="dropdown-item" href="#">Filtrar</a>
                         <a class="dropdown-item" href="#">Solo nombre y apellido</a>
                       </div>
@@ -92,6 +92,31 @@
                     </table>
             </div>
         </div>
-    </div>              
+    </div>
+    
+    <div class="modal fade" id="modalPromedio" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Promediar turno</h5>
+            <button id="btnCerrarPromedio" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select class="form-control" id="selectPromedio">
+              <option>Mañana</option>
+              <option>Tarde</option>
+              <option>Noche</option>
+              </select>
+              <p id="pPromedio"></p>
+          </div>
+          <div class="modal-footer">
+            <button id="btnPromedio" type="button" class="btn btn-primary">Calcular</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>

@@ -1,15 +1,31 @@
 var lista:Array<string> = new Array<string>();
-var target:number;
+//var target:number;
 
 $(function()
 {
     $("#btnAgregar").click(agregarEmpleado);
+    $("#btnCancelar").click(limpiarFormulario);
     $("#aMostrar").click(mostrarEmpleados);
+    $("#btnPromedio").click(promediar);
+    $("#btnCerrarPromedio").click(borrarPromedio);
     if (localStorage.getItem("empleados")) 
     {
         lista = JSON.parse(localStorage.getItem("empleados"));  
     }
 });
+
+function borrarPromedio()
+{
+    $("#selectPromedio").val("Mañana");
+    $("#pPromedio").html("");
+}
+
+function promediar()
+{
+    var turno = $("#selectPromedio").val();
+    let promedio = lista.reduce((sum, empleado) => {return (JSON.parse(empleado)).horario === turno ? sum + 1 : sum}, 0) / lista.length;
+    $("#pPromedio").html("Promedio: " + String(promedio));
+}
 
 function  agregarEmpleado():void
 {
@@ -31,6 +47,11 @@ function  limpiarFormulario():void
     $("#inputEdad").val("");
     $("#selectHorario").val("Mañana");
     $("#inputLegajo").val("");
+
+    $("#btnAgregar").text("Agregar");
+    $("#btnAgregar").click(agregarEmpleado);
+
+    $("#headerForm").html("Alta empleado");
 }
 
 function  mostrarEmpleados():void
@@ -85,17 +106,23 @@ function  mostrarEmpleados():void
 function cambiarForm(e:Event) 
 {
     let trigger = e.target as HTMLElement;
-    target = trigger.previousSibling.previousSibling.innerHTML;
+    let horario = trigger.previousSibling;
+    let legajo = horario.previousSibling;
+    let edad = legajo.previousSibling;
+    let apellido = edad.previousSibling;
+    let nombre = apellido.previousSibling;
 
-    ($("#inputNombre").val());
-    ($("#inputApellido").val());
-    ($("#inputEdad").val());
-    ($("#selectHorario").val());
-    ($("#inputLegajo").val());
+    ($("#inputNombre").val(nombre.innerHTML));
+    ($("#inputApellido").val(apellido.innerHTML));
+    ($("#inputEdad").val(edad.innerHTML));
+    ($("#selectHorario").val(horario.innerHTML));
+    ($("#inputLegajo").val(legajo.innerHTML));
 
     $("#btnAgregar").text("Modificar");
     $("#btnAgregar").unbind( "click" );
     $("#btnAgregar").click(wrapModificar);
+
+    $("#headerForm").html("Modificar empleado");
 }
 
 function wrapModificar()
