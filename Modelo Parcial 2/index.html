@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./persona.js"></script>
+    <script src="./empleado.js"></script>
+    <script src="./manejadora.js"></script>
+    <link rel="stylesheet" href=".\node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <title>Modelo parcial</title>
+</head>
+<body>
+    
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Lista</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a id="aMostrar" class="nav-link" href="#">Mostrar <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Formulario</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ver
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Promedio</a>
+                        <a class="dropdown-item" href="#">Filtrar</a>
+                        <a class="dropdown-item" href="#">Solo nombre y apellido</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <form>
+                    <h3 id="headerForm">Alta empleado</h3>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="inputNombre" placeholder="Nombre..">
+                    </div>
+                    <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="inputApellido" placeholder="Apellido..">
+                    </div>
+                    <div class="form-group">
+                            <label for="edad">Edad</label>
+                            <input type="number" class="form-control" id="inputEdad" placeholder="Edad..">
+                    </div>
+                    <div class="form-group">
+                            <label for="legajo">Legajo</label>
+                            <input type="number" class="form-control" id="inputLegajo" placeholder="Legajo..">
+                    </div>
+                    <div class="form-group">
+                        <label for="horario">Horario</label>
+                        <select class="form-control" id="selectHorario">
+                        <option>Mañana</option>
+                        <option>Tarde</option>
+                        <option>Noche</option>
+                        </select>
+                    </div>
+                    <button id="btnCancelar" type="button" class="btn btn-danger">Cancelar</button>
+                    <button id="btnAgregar" type="button" class="btn btn-success">Agregar</button>
+                </form>
+            </div>
+
+            <div id="divListado" class="col-9">
+                    <h3>Lista empleados</h3>
+                    <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Legajo</th>
+                                <th scope="col">Turno</th>
+                                <th scope="col">Accion</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tBody">
+                            </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>              
+</body>
+</html>
