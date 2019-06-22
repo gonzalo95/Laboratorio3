@@ -1,10 +1,14 @@
-var lista:Array<persona.Empleado> = new Array<persona.Empleado>();
+var lista:Array<string> = new Array<string>();
 var target:number;
 
 $(function()
 {
     $("#btnAgregar").click(agregarEmpleado);
     $("#aMostrar").click(mostrarEmpleados);
+    if (localStorage.getItem("empleados")) 
+    {
+        lista = JSON.parse(localStorage.getItem("empleados"));  
+    }
 });
 
 function  agregarEmpleado():void
@@ -12,11 +16,12 @@ function  agregarEmpleado():void
     let nombre = String($("#inputNombre").val());
     let apellido = String($("#inputApellido").val());
     let edad = Number($("#inputEdad").val());
-    let horario = String($("#inputHorario").val());
+    let horario = String($("#selectHorario").val());
     let legajo = Number($("#inputLegajo").val());
 
-    lista.push(new persona.Empleado(nombre, apellido, edad, horario, legajo));
+    lista.push(new persona.Empleado(nombre, apellido, edad, horario, legajo).empleadoToJson());
     limpiarFormulario();
+    localStorage.setItem("empleados", JSON.stringify(lista));
 }
 
 function  limpiarFormulario():void
@@ -24,7 +29,7 @@ function  limpiarFormulario():void
     $("#inputNombre").val("");
     $("#inputApellido").val("");
     $("#inputEdad").val("");
-    $("#inputHorario").val("");
+    $("#selectHorario").val("Mañana");
     $("#inputLegajo").val("");
 }
 
@@ -34,7 +39,7 @@ function  mostrarEmpleados():void
     $("#tBody").empty();
     for (var i = 0; i < lista.length; i++) 
     {
-        let empleado = lista[i];
+        let empleado = JSON.parse(lista[i]);
 
         let tr = document.createElement("tr");
 
@@ -85,7 +90,7 @@ function cambiarForm(e:Event)
     ($("#inputNombre").val());
     ($("#inputApellido").val());
     ($("#inputEdad").val());
-    ($("#inputHorario").val());
+    ($("#selectHorario").val());
     ($("#inputLegajo").val());
 
     $("#btnAgregar").text("Modificar");
@@ -104,7 +109,7 @@ function  modificar(i:number):void
     let nombre = String($("#inputNombre").val());
     let apellido = String($("#inputApellido").val());
     let edad = Number($("#inputEdad").val());
-    let horario = String($("#inputHorario").val());
+    let horario = String($("#selectHorario").val());
     let legajo = Number($("#inputLegajo").val());
 
     let empleado = lista.filter(empleado => empleado.legajo === i);
@@ -127,8 +132,8 @@ function wrapEliminar(e:Event)
 
 function  eliminar(i:number):void
 {
-    console.log(i);
-    lista = lista.filter(empleado => empleado.legajo === i);
+    lista = lista.filter(empleado => (JSON.parse(empleado)).legajo != i);
+    localStorage.setItem("empleados", JSON.stringify(lista));
     mostrarEmpleados();
 }
 

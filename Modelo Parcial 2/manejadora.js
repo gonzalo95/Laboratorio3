@@ -4,28 +4,32 @@ var target;
 $(function () {
     $("#btnAgregar").click(agregarEmpleado);
     $("#aMostrar").click(mostrarEmpleados);
+    if (localStorage.getItem("empleados")) {
+        lista = JSON.parse(localStorage.getItem("empleados"));
+    }
 });
 function agregarEmpleado() {
     var nombre = String($("#inputNombre").val());
     var apellido = String($("#inputApellido").val());
     var edad = Number($("#inputEdad").val());
-    var horario = String($("#inputHorario").val());
+    var horario = String($("#selectHorario").val());
     var legajo = Number($("#inputLegajo").val());
-    lista.push(new persona.Empleado(nombre, apellido, edad, horario, legajo));
+    lista.push(new persona.Empleado(nombre, apellido, edad, horario, legajo).empleadoToJson());
     limpiarFormulario();
+    localStorage.setItem("empleados", JSON.stringify(lista));
 }
 function limpiarFormulario() {
     $("#inputNombre").val("");
     $("#inputApellido").val("");
     $("#inputEdad").val("");
-    $("#inputHorario").val("");
+    $("#selectHorario").val("Mañana");
     $("#inputLegajo").val("");
 }
 function mostrarEmpleados() {
     console.log(lista);
     $("#tBody").empty();
     for (var i = 0; i < lista.length; i++) {
-        var empleado = lista[i];
+        var empleado = JSON.parse(lista[i]);
         var tr = document.createElement("tr");
         var tdNombre = document.createElement("td");
         var nombre = document.createTextNode(empleado.nombre);
@@ -64,7 +68,7 @@ function cambiarForm(e) {
     ($("#inputNombre").val());
     ($("#inputApellido").val());
     ($("#inputEdad").val());
-    ($("#inputHorario").val());
+    ($("#selectHorario").val());
     ($("#inputLegajo").val());
     $("#btnAgregar").text("Modificar");
     $("#btnAgregar").unbind("click");
@@ -78,7 +82,7 @@ function modificar(i) {
     var nombre = String($("#inputNombre").val());
     var apellido = String($("#inputApellido").val());
     var edad = Number($("#inputEdad").val());
-    var horario = String($("#inputHorario").val());
+    var horario = String($("#selectHorario").val());
     var legajo = Number($("#inputLegajo").val());
     var empleado = lista.filter(function (empleado) { return empleado.legajo === i; });
     empleado[0].nombre = nombre;
@@ -94,8 +98,8 @@ function wrapEliminar(e) {
     eliminar(legajo);
 }
 function eliminar(i) {
-    console.log(i);
-    lista = lista.filter(function (empleado) { return empleado.legajo === i; });
+    lista = lista.filter(function (empleado) { return (JSON.parse(empleado)).legajo != i; });
+    localStorage.setItem("empleados", JSON.stringify(lista));
     mostrarEmpleados();
 }
 function filtrarPorHorario() {
