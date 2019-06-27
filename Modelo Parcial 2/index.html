@@ -31,8 +31,8 @@
                         Ver
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a type="button" data-toggle="modal" data-target="#modalPromedio" class="dropdown-item" href="#">Promedio</a>
-                        <a class="dropdown-item" href="#">Filtrar</a>
+                        <a type="dropdown-item" data-toggle="modal" data-target="#modalPromedio" class="dropdown-item" href="#">Promedio</a>
+                        <a type="dropdown-item" data-toggle="modal" data-target="#modalFiltrar" class="dropdown-item" href="#">Filtrar</a>
                         <a class="dropdown-item" href="#">Solo nombre y apellido</a>
                       </div>
                     </li>
@@ -113,6 +113,29 @@
           </div>
           <div class="modal-footer">
             <button id="btnPromedio" type="button" class="btn btn-primary">Calcular</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalFiltrar" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Filtrar</h5>
+            <button id="btnCerrarFiltrar" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select class="form-control" id="selectFiltrar">
+              <option>Mañana</option>
+              <option>Tarde</option>
+              <option>Noche</option>
+              </select>
+          </div>
+          <div class="modal-footer">
+            <button id="btnFiltrar" type="button" class="btn btn-primary">Filtrar</button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 var lista:Array<string> = new Array<string>();
-//var target:number;
+var target:number;
 
 $(function()
 {
@@ -8,6 +8,7 @@ $(function()
     $("#aMostrar").click(mostrarEmpleados);
     $("#btnPromedio").click(promediar);
     $("#btnCerrarPromedio").click(borrarPromedio);
+    $("#btnFiltrar").click(filtrarPorHorario);
     if (localStorage.getItem("empleados")) 
     {
         lista = JSON.parse(localStorage.getItem("empleados"));  
@@ -49,6 +50,7 @@ function  limpiarFormulario():void
     $("#inputLegajo").val("");
 
     $("#btnAgregar").text("Agregar");
+    $("#btnAgregar").off( "click" );
     $("#btnAgregar").click(agregarEmpleado);
 
     $("#headerForm").html("Alta empleado");
@@ -118,8 +120,10 @@ function cambiarForm(e:Event)
     ($("#selectHorario").val(horario.innerHTML));
     ($("#inputLegajo").val(legajo.innerHTML));
 
+    target = legajo;
+
     $("#btnAgregar").text("Modificar");
-    $("#btnAgregar").unbind( "click" );
+    $("#btnAgregar").off( "click" );
     $("#btnAgregar").click(wrapModificar);
 
     $("#headerForm").html("Modificar empleado");
@@ -127,27 +131,44 @@ function cambiarForm(e:Event)
 
 function wrapModificar()
 {
-    modificar(target);
+    var i = getIndex(target.innerHTML);
+    modificar(i);
 }
 
 function  modificar(i:number):void
 {
-    console.log(i);
+    //console.log(i);
     let nombre = String($("#inputNombre").val());
     let apellido = String($("#inputApellido").val());
     let edad = Number($("#inputEdad").val());
     let horario = String($("#selectHorario").val());
     let legajo = Number($("#inputLegajo").val());
 
-    let empleado = lista.filter(empleado => empleado.legajo === i);
-    
-    empleado[0].nombre = nombre;
-    empleado[0].apellido = apellido;
-    empleado[0].edad = edad;
-    empleado[0].horario = horario;
-    empleado[0].legajo = legajo;
+    let empleado = JSON.parse(lista[i]);
+
+    empleado.nombre = nombre;
+    empleado.apellido = apellido;
+    empleado.edad = edad;
+    empleado.horario = horario;
+    empleado.legajo = legajo;
+
+    lista[i] = JSON.stringify(empleado);
+
+    localStorage.setItem("empleados", JSON.stringify(lista));
 
     mostrarEmpleados();
+}
+
+function getIndex(legajo)
+{
+    console.log(legajo);
+    for (let i = 0; i < lista.length; i++) {
+        console.log(i);
+        if (JSON.parse(lista[i]).legajo == legajo) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 function wrapEliminar(e:Event)
@@ -166,7 +187,10 @@ function  eliminar(i:number):void
 
 function  filtrarPorHorario():void
 {
-
+    console.log($("#selectFiltrar").val());
+    let horario = $("#selectFiltrar").val();
+    lista = lista.filter(empleado => JSON.parse(empleado).horario == horario);
+    mostrarEmpleados();
 }
 
 function  promedioEdadPorHorario():void

@@ -1,12 +1,13 @@
 "use strict";
 var lista = new Array();
-//var target:number;
+var target;
 $(function () {
     $("#btnAgregar").click(agregarEmpleado);
     $("#btnCancelar").click(limpiarFormulario);
     $("#aMostrar").click(mostrarEmpleados);
     $("#btnPromedio").click(promediar);
     $("#btnCerrarPromedio").click(borrarPromedio);
+    $("#btnFiltrar").click(filtrarPorHorario);
     if (localStorage.getItem("empleados")) {
         lista = JSON.parse(localStorage.getItem("empleados"));
     }
@@ -37,6 +38,7 @@ function limpiarFormulario() {
     $("#selectHorario").val("Mañana");
     $("#inputLegajo").val("");
     $("#btnAgregar").text("Agregar");
+    $("#btnAgregar").off("click");
     $("#btnAgregar").click(agregarEmpleado);
     $("#headerForm").html("Alta empleado");
 }
@@ -89,28 +91,42 @@ function cambiarForm(e) {
     ($("#inputEdad").val(edad.innerHTML));
     ($("#selectHorario").val(horario.innerHTML));
     ($("#inputLegajo").val(legajo.innerHTML));
+    target = legajo;
     $("#btnAgregar").text("Modificar");
-    $("#btnAgregar").unbind("click");
+    $("#btnAgregar").off("click");
     $("#btnAgregar").click(wrapModificar);
     $("#headerForm").html("Modificar empleado");
 }
 function wrapModificar() {
-    modificar(target);
+    var i = getIndex(target.innerHTML);
+    modificar(i);
 }
 function modificar(i) {
-    console.log(i);
+    //console.log(i);
     var nombre = String($("#inputNombre").val());
     var apellido = String($("#inputApellido").val());
     var edad = Number($("#inputEdad").val());
     var horario = String($("#selectHorario").val());
     var legajo = Number($("#inputLegajo").val());
-    var empleado = lista.filter(function (empleado) { return empleado.legajo === i; });
-    empleado[0].nombre = nombre;
-    empleado[0].apellido = apellido;
-    empleado[0].edad = edad;
-    empleado[0].horario = horario;
-    empleado[0].legajo = legajo;
+    var empleado = JSON.parse(lista[i]);
+    empleado.nombre = nombre;
+    empleado.apellido = apellido;
+    empleado.edad = edad;
+    empleado.horario = horario;
+    empleado.legajo = legajo;
+    lista[i] = JSON.stringify(empleado);
+    localStorage.setItem("empleados", JSON.stringify(lista));
     mostrarEmpleados();
+}
+function getIndex(legajo) {
+    console.log(legajo);
+    for (var i = 0; i < lista.length; i++) {
+        console.log(i);
+        if (JSON.parse(lista[i]).legajo == legajo) {
+            return i;
+        }
+    }
+    return -1;
 }
 function wrapEliminar(e) {
     var trigger = e.target;
@@ -123,6 +139,10 @@ function eliminar(i) {
     mostrarEmpleados();
 }
 function filtrarPorHorario() {
+    console.log($("#selectFiltrar").val());
+    var horario = $("#selectFiltrar").val();
+    lista = lista.filter(function (empleado) { return JSON.parse(empleado).horario == horario; });
+    mostrarEmpleados();
 }
 function promedioEdadPorHorario() {
 }
