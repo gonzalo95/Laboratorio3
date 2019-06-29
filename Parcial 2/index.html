@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./Vehiculo.js"></script>
+    <script src="./Auto.js"></script>
+    <script src="./Camioneta.js"></script>
+    <script src="./logica.js"></script>
+    <link rel="stylesheet" href=".\node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <title>Segundo parcial</title>
+</head>
+<body>
+
+  <button id="btnAlta" type="button" data-toggle="modal" data-target="#modalAlta" class="btn btn-primary">Alta</button>
+  <button id="btnLimpiar" type="button" class="btn btn-primary">Limpiar</button>
+  <br/>
+  <hr>
+  <h1 align="center">Filtros</h1>
+  <hr>
+  <div>
+
+    <label>Filtrar por: </label>
+    <select class="form-control col-md-2" id="selectFiltro">
+      <option>Auto</option>
+      <option>Camioneta</option>
+    </select>
+  <br/>
+    <p>Promedio de precio: </p>
+    <input disabled="disabled" id="inputPromedio" type="text"/>
+    <button id="btnPromedio" type="button" class="btn btn-primary">Calcular</button>
+  </div>
+  <br/>
+  <hr>
+  <h1 align="center">Lista</h1>
+  <hr>
+  <table class="table">
+          <thead>
+            <tr>
+              <!-- <th scope="col" hidden>ID</th> -->
+              <th scope="col">ID</th>
+              <th scope="col">MARCA</th>
+              <th scope="col">MODELO</th>
+              <th scope="col">PRECIO</th>
+              <th scope="col">ACCION</th>
+          </tr>
+          </thead>
+          <tbody id="tBody">
+          </tbody>
+  </table>
+    
+    <div class="modal fade" id="modalAlta" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Alto Vehiculo</h5>
+            <button id="btnCerrarPromedio" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <label>Id:</label>
+            <input class="form-control"  disabled="disabled" type="text">
+            <br/>
+            <label>Marca:</label>
+            <input class="form-control" id="inputMarca" type="text">
+            <br/>
+            <label>Modelo:</label>
+            <input class="form-control" id="inputModelo" type="text">
+            <br/>
+            <label>Precio:</label>
+            <input class="form-control" id="inputPrecio" type="number">
+            <br/>
+            <label>Tipo:</label>
+            <select class="form-control col-md-4" id="selectAlta">
+                <option>Auto</option>
+                <option>Camioneta</option>
+            </select>
+
+          </div>
+          <div class="modal-footer">
+            <button id="btnAgregar" type="button" class="btn btn-primary">Agregar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

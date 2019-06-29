@@ -1021,8 +1021,8 @@ var datos =[
     else return acc;
   }, 0)).map(persona => persona = {name:persona.name, age:persona.age});
   */
-  return datos.reduce(function(max, item){
-    if (max.age < item.age) 
+  return datos.reduce(function(prev, act){
+    if (prev.id < act.id) 
     {
       max.age = item.age;
       max.name = item.name;
